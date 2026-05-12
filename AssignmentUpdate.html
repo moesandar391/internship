@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AssignmentUpdate</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            
+        }
+        /* .container{
+            margin: auto;
+            margin-top: 50px;
+            padding:20px;
+            max-width:600px;
+            background-color:rgb(88, 118, 145);
+            border-radius: 15px;
+            display: flex;
+            gap: 100px;
+        } */
+          .container{
+            margin:auto;
+            margin-top: 100px;
+            padding:20px;
+            width:600px;
+            background-color:aliceblue;
+            border-radius: 15px;
+            box-shadow: 0 2px 5px;
+            display: flex;
+            gap: 5rem;
+         }
+        .box1{
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        /* #card{
+            width:200px;
+            height: 150px;
+            border: 1px solid black;
+            border-radius: 10px;
+            padding-left: 10px;
+            
+        }
+        #vipoutput{
+            background-color: gold;
+            border-radius: 15px;
+            margin-left: 10px;
+            width:130px;
+           
+        } */
+         #card{
+            width:200PX;
+            height: 150PX;
+            border: 2px solid black;
+            border-radius: 15px;
+            padding-left: 10px;
+            
+            
+        }
+        #vipoutput{
+            background-color: gold;
+            text-align: center;
+            border-radius: 15px;
+            width:130px;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Update variables -->
+    <section class="box1">
+        <h2>Update Variables</h2>
+            <lable for="name">Name (String):</lable>
+            <input type="text" id="name" value="Alex Walker" oninput="updateCard()"></input>
+            
+            <lable for="age">Age (Number):</lable>
+            <input type="number" id="age" value="40" oninput="updateCard()"></input>
+            
+            <lable for="VIPstatus">VIP Status (Boolean):</lable>
+            <input type="checkbox" id="VIPstatus" onchange="updateCard()"></input>
+            
+            <lable for="cardcolor">Card Color:</lable>
+            <input type="color" id="cardcolor" oninput="updateCard()"></input>
+            
+    </section>
+    <!-- live output -->
+    <section>
+        <h2>Live DOM Output</h2>
+        <div id="card">
+        <p id="vipoutput"></p>
+        <p id="outName"></p>
+        <p id="outAge"></p>
+        </div>
+    </section>
+    </div>
+    <script>
+        function updateCard(){
+        let name=document.getElementById("name").value;
+        let age=document.getElementById("age").value;
+        let status=document.getElementById("VIPstatus");
+        let cardcolor=document.getElementById("cardcolor").value;
+
+        document.getElementById("outName").innerHTML=name;
+        document.getElementById("outAge").innerHTML="Age: "+age;
+        
+        if(status.checked){
+            document.getElementById("vipoutput").innerHTML="VIP MEMBER";
+        }
+        else{
+            document.getElementById("vipoutput").innerHTML=" ";
+
+        }
+        document.getElementById("card").style.backgroundColor=cardcolor;
+    }
+    </script>
+</body>
+</html>

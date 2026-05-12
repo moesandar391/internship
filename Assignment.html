@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignment I</title>
+    <style>
+          .container{
+            margin:auto;
+            margin-top: 100px;
+            padding:20px;
+            width:600px;
+            background-color:aliceblue;
+            border-radius: 15px;
+            box-shadow: 0 2px 5px;
+            display: flex;
+            gap: 5rem;
+         }
+         .box1{
+            display: inline;
+            /* flex-direction: column;
+            gap: 10px; */
+         }
+        #VIPstatus{  
+            margin-left: 150px;
+        }
+        #card{
+            width:200PX;
+            height: 150PX;
+            border: 2px solid black;
+            border-radius: 15px;
+            padding-left: 10px;
+            
+        }
+        #vipoutput{
+            background-color: gold;
+            text-align: center;
+            border-radius: 15px;
+            width:130px;
+            margin-left: 10px;
+           
+        }
+        /* .hello{
+            border: 1px solid black;
+            width:200PX;
+            height: 150PX;
+            padding: 10px 10px 10px 170px;
+        } */
+
+    </style>
+</head>
+<body>
+    <div class="container">
+    <div class="box1">
+        <h2>Update Variables</h2>
+            <lable for="name">Name (String):</lable>
+            <input type="text" id="name" value="Alex Walker" oninput="updateCard()"></input>
+            
+            <lable for="age">Age (Number):</lable>
+            <input type="number" id="age" value="40" oninput="updateCard()"></input>
+            
+            <lable for="VIPstatus">VIP Status (Boolean):</lable>
+            <input type="checkbox" id="VIPstatus" onchange="updateCard()"></input>
+            
+            <lable for="cardcolor">Card Color:</lable>
+            <input type="color" id="cardcolor" oninput="updateCard()"></input>
+            
+    </div>
+    <div class="box2">
+        <h2>Live DOM Output</h2>
+        <div id="card">
+        <p id="vipoutput"></p>
+        <p id="outName"></p>
+        <p id="outAge"></p>
+        </div>
+    </div>
+    </div>
+</div>
+<!-- <div class="hello">
+<p>Hello</p>
+</div> -->
+    <script>
+        function updateCard(){
+        let name=document.getElementById("name").value;
+        let age=document.getElementById("age").value;
+        let status=document.getElementById("VIPstatus");
+        let cardcolor=document.getElementById("cardcolor").value;
+
+
+        document.getElementById("outName").innerText=name;
+        document.getElementById("outAge").innerText="Age: "+age;
+        
+        if(status.checked){
+            document.getElementById("vipoutput").innerText="VIP MEMBER";
+        }
+        else{
+            document.getElementById("vipoutput").innerText=" ";
+
+        }
+        document.getElementById("card").style.backgroundColor=cardcolor;
+    }
+    </script>
+    
+</body>
+</html>

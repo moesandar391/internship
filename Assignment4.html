@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignment IV</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            overflow: hidden;
+        }
+
+        .container {
+            width: 420px;
+            height: 200px;
+            /* border: 1px solid black; */
+            box-shadow: 0 2px 5px;
+            border-radius: 10px;
+            margin: auto;
+            margin-top: 200px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            /* padding: 5px; */
+
+        }
+
+        button {
+            background-color: blue;
+            color: white;
+            border-radius: 5px;
+            width: 380px;
+            height: 30px;
+        }
+
+        button:hover {
+            background-color: rgb(16, 148, 236);
+        }
+
+        p {
+            border: 1px dotted rgb(175, 171, 171);
+            border-radius: 10px;
+            background-color: aliceblue;
+            width: 380px;
+            height: 30px;
+            display: flex;
+            justify-content: space-between;
+            /* text-align: center; */
+            /* align-items: center;
+            justify-content: center; */
+            padding: 5px;
+        }
+
+        #answer {
+            color: green;
+        }
+
+        input,
+        select {
+            /* weight: 50px; */
+            height: 30px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Mini Calculator</h1>
+        <span>
+            <input type="number" name="" id="num1">
+            <select name="" id="operator">
+                <option value="+">+</option>
+                <option value="-">-</option>
+                <option value="*">*</option>
+                <option value="/">/</option>
+            </select>
+            <input type="number" name="" id="num2">
+        </span>
+        <button onclick=calculate()>Calculate Amount</button>
+        <p>Result:<span id="answer"></span></p>
+    </div>
+    <script>
+        function calculate() {
+            let num1 = parseFloat(document.getElementById("num1").value);
+            let num2 = parseFloat(document.getElementById("num2").value);
+            let operator = document.getElementById("operator").value;
+            let result;
+
+            if(isNaN(num1) || isNaN(num2)){
+                document.getElementById("answer").innerHTML = "Error";
+            }
+            else{
+
+                switch (operator) {
+                    case "+": result = num1 + num2;
+                        break;
+                    case "-": result = num1 - num2;
+                        break;
+                    case "*": result = num1 * num2;
+                        break;
+                    case "/": 
+                    if(num2===0){
+                        result="Can't do.";
+                    }else{
+                    result = num1 / num2;
+                    
+                    }
+                        break;
+                        Default: "Invalid";
+                }
+                document.getElementById("answer").innerHTML = result;
+            }
+            
+        }   
+
+        
+
+    </script>
+</body>
+
+</html>
