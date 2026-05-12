@@ -108,7 +108,7 @@
                 <button onclick="calculate(')')" class="btn2">)</button>
                 <!-- <button onclick="addBracket()" class="btn2">()</button> -->
                 <button onclick="calculate(0)" class="btn2">0</button>
-                <button onclick="addDot()" class="btn2">.</button>
+                <button onclick="addDot('.')" class="btn2">.</button>
                 <button onclick="equalValue('=')" class="btn3">=</button>
             </div>
 
@@ -146,8 +146,9 @@
             // }
             function addDot() {
                 let lastnum = answer.value.split(/[\+\-\*\/]/).pop();
-                if (lastnum.value.includes(".")) {
+                if (!lastnum.includes(".")) {
                     answer.value += ".";
+                    
                 }
             }
         </script>
