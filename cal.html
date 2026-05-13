@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/fontawesome.min.css">
+    <title>Assignment V</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            width: 300px;
+            height: 430px;
+            border: 1px solid rgb(233, 235, 236);
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 2px 5px;
+            margin: auto;
+            margin-top: 100px;
+        }
+
+        #box {
+            width: 100%;
+            height: 20px;
+            margin-bottom: 10px;
+            border: 1px solid #eee;
+            text-align: right;
+            padding: 20px;
+            font-size: 20px;
+            color: rgba(29, 168, 202, 0.9);
+            border-radius: 10px;
+        }
+
+        #buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        button {
+            border-radius: 50%;
+            border: none;
+            width: 40px;
+            height: 40px;
+            background-color: rgb(158, 203, 230);
+            font-size: 20px;
+            margin: 4px 6px;
+            cursor: pointer;
+        }
+
+        .btn1 { color: orange; }
+        .btn2 { color: rgba(29, 168, 202, 0.9); }
+        .btn3 { background-color: palevioletred; color: white; }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <input type="text" name="name" id="box" value="0">
+        <div id="buttons">
+            <button onclick="allClear()" class="btn1">C</button>
+            <button onclick="deleteLast()" class="btn1">⌫</button>
+            <button onclick="calculate('%')" class="btn2">%</button>
+            <button onclick="calculate('/')" class="btn1">/</button>
+            <button onclick="calculate(7)" class="btn2">7</button>
+            <button onclick="calculate(8)" class="btn2">8</button>
+            <button onclick="calculate(9)" class="btn2">9</button>
+            <button onclick="calculate('*')" class="btn1">*</button>
+            <button onclick="calculate(4)" class="btn2">4</button>
+            <button onclick="calculate(5)" class="btn2">5</button>
+            <button onclick="calculate(6)" class="btn2">6</button>
+            <button onclick="calculate('-')" class="btn1">-</button>
+            <button onclick="calculate(1)" class="btn2">1</button>
+            <button onclick="calculate(2)" class="btn2">2</button>
+            <button onclick="calculate(3)" class="btn2">3</button>
+            <button onclick="calculate('+')" class="btn1">+</button>
+            <button onclick="calculate('(')" class="btn2">(</button>
+            <button onclick="calculate(')')" class="btn2">)</button>
+            <button onclick="calculate(0)" class="btn2">0</button>
+            <button onclick="calculate('.')" class="btn2">.</button>
+            <button onclick="equalValue('=')" class="btn3">=</button>
+        </div>
+    </div>
+
+    <script>
+        let answer = document.getElementById("box");
+
+        function calculate(value) {
+            
+            let start = answer.selectionStart;
+            let end = answer.selectionEnd;
+            let before = answer.value.substring(0, start);
+            let after = answer.value.substring(end);
+            
+            let lastChar = before.slice(-1);
+            let operators = ['+', '-', '*', '/', '.', '%'];
+
+            
+            if(value ==='(' && !isNaN(lastChar) && before !== '' && lastChar !== '('){
+                answer.value = before + '*(' + after;
+                answer.setSelectionRange(start + 2, start + 2);
+                answer.focus();
+                return;
+            }
+
+            
+            if (operators.includes(lastChar) && operators.includes(value)) {
+                answer.value = before.slice(0, -1) + value + after;
+                answer.setSelectionRange(start, start);
+                answer.focus();
+                return;
+            }
+                        
+            
+            if (answer.value === '0' && !operators.includes(value.toString())) {
+                answer.value = value;
+                answer.setSelectionRange(1, 1);
+            } else {
+                answer.value = before + value + after;
+                answer.setSelectionRange(start + 1, start + 1);
+            }
+            answer.focus();
+        }
+           
+        function equalValue() {
+            try {
+                
+                let open = (answer.value.match(/\(/g) || []).length;
+                let close = (answer.value.match(/\)/g) || []).length;
+                while (open > close) {
+                    answer.value += ")";
+                    close++;
+                }
+
+                if (answer.value.includes("()")) {
+                    answer.value = "Error";
+                    return;
+                }
+
+                if (answer.value.includes('/0') && !answer.value.includes('/0.')) {
+                    answer.value = "Cannot divide by 0";
+                    return;
+                }
+
+                let finalResult = eval(answer.value);
+                answer.value = Number.isInteger(finalResult) ? finalResult : parseFloat(finalResult.toFixed(6));
+                
+            } catch (error) {
+                answer.value = "Error!";
+            }
+            answer.focus();
+        }
+        
+        function allClear() {
+            answer.value = "0";
+            answer.focus();
+        }
+
+        function deleteLast() {
+            let start = answer.selectionStart;
+            let end = answer.selectionEnd;
+
+            if (start !== end) {
+                
+                answer.value = answer.value.substring(0, start) + answer.value.substring(end);
+                answer.setSelectionRange(start, start);
+            } else if (start > 0) {
+                
+                answer.value = answer.value.substring(0, start - 1) + answer.value.substring(end);
+                answer.setSelectionRange(start - 1, start - 1);
+            }
+
+            if (answer.value === "") answer.value = "0";
+            answer.focus();
+        }
+    </script>
+</body>
+</html>

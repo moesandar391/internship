@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignment VI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+    <div class="max-w-xl mx-auto p-6 bg-gray-300 rounded-lg mt-40 flex gap-16 shadow-lg">
+        <section class="flex flex-col gap-2 rounded-lg">
+            <h2 class="font-bold text-xl">Update Variables</h2>
+            <label for="name" class="font-bold text-base ">Name (String):</label>
+            <input type="text" pattern="[A-Za-z]+" id="name" class="rounded-md p-2" value="Alex Walker" oninput="updateCard()"></input>
+
+            <label for="age" class="font-bold text-base">Age (Number):</label>
+            <input type="number" id="age" class="rounded-md p-2" value="40" oninput="updateCard()"></input>
+
+            <label for="VIPstatus" class="font-bold text-base">VIP Status (Boolean):</label>
+            <input type="checkbox" id="VIPstatus" onchange="updateCard()"></input>
+
+            <label for="cardcolor" class="font-bold text-base">Card Color:</label>
+            <input type="color" id="cardcolor" oninput="updateCard()"></input>
+        </section>
+
+        <section>
+            <h2 class="font-bold text-xl mb-4 text-center">Live DOM Output</h2>
+            <div id="card" class="p-4 border border-gray-600 rounded-lg bg-white w-60 h-40 flex flex-col gap-2 ">
+                <p id="vipoutput" class="font-bold text-center rounded-lg bg-orange-300 text-black w-40"></p>
+                <p id="outName" class="font-bold"></p>
+                <p id="outAge"></p>
+            </div>
+        </section>
+    </div>
+    <script>
+        function updateCard() {
+            let name = document.getElementById("name").value;
+            let age = document.getElementById("age").value;
+            let status = document.getElementById("VIPstatus");
+            let cardcolor = document.getElementById("cardcolor").value;
+
+            document.getElementById("outName").textContent = name;
+            document.getElementById("outAge").textContent = "Age: " + age;
+
+            if (status.checked) {
+                document.getElementById("vipoutput").textContent = "VIP MEMBER";
+            }
+            else {
+                document.getElementById("vipoutput").textContent = " ";
+
+            }
+            document.getElementById("card").style.backgroundColor = cardcolor;
+        }
+    </script>
+</body>
+
+</html>

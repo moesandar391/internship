@@ -44,7 +44,7 @@
             border: none;
             text-align: right;
             padding: 20px;
-            font-size: 30px;
+            font-size: 20px;
             color: rgba(29, 168, 202, 0.9);
             border-radius: 10px;
 
@@ -117,33 +117,62 @@
         <script>
             let answer = document.getElementById("box");
             function calculate(value) {
-                if (answer.value === '0') {
+                 let lastChar = answer.value.slice(-1);
+                 let operators = ['+', '-', '*', '/', '.'];
+                 if(value ==='(' && !isNaN(answer.value) && answer.value!=='0'){
+                    answer.value += '*(';
+                    return;
+                 }
+                  if (operators.includes(lastChar) && operators.includes(value)) {
+                    return;
+                    }
+                            
+                if (answer.value === '0' && !operators.includes(value)) {
                     answer.value = value;
                 } else {
                     answer.value += value;
                 }
             }
+               
+            
+            
+            
+            function equalValue(value) {
+                let open = (answer.value.match(/\(/g)||[ ]).length;
+                let close = (answer.value.match(/\)/g)||[ ]).length;
+                while (open > close) {
+                answer.value += ")";
+                close++;
+            }
+             if (answer.value.includes("()")) {
+                answer.value = "Error!";
+                return;
+            }
+            try {
+
+                if (answer.value.includes('/0') && !answer.value.includes('/0.')) {
+                    answer.value = "Cannot divide by 0";
+                    return;
+                }
+                let finalResult = eval(answer.value);
+                 if (Number.isInteger(finalResult)){
+                    answer.value = finalResult;
+                } else {
+                        answer.value =parseFloat(finalResult.toFixed(6));
+                    }
+                } catch (error) {
+                    answer.value = "Error!";
+                 }
+            }
+            
             function allClear() {
                 answer.value = "0";
             }
             function deleteLast() {
                 answer.value = answer.value.slice(0, -1) || "0";
-                // answer.value = "0";
+                
             }
-            function equalValue(value) {
-                try {
-                    answer.value = eval(answer.value);
-                } catch {
-                    answer.value = "Error";
-                }
-            }
-            // function addBracket(){
-            //     if(answer.value.includes("(")){
-            // answer.value+="(";
-            // }else{
-            //     answer.value+=")";
-            // }
-            // }
+            
             function addDot() {
                 let lastnum = answer.value.split(/[\+\-\*\/]/).pop();
                 if (!lastnum.includes(".")) {
